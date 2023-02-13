@@ -1,12 +1,12 @@
 import { OpenTelemetryModule } from '@metinseylan/nestjs-opentelemetry';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { JaegerExporter } from '@opentelemetry/exporter-jaeger';
 import {
     SimpleSpanProcessor,
     TraceIdRatioBasedSampler,
 } from '@opentelemetry/sdk-trace-base';
+import { AppController } from './app.controller'
 
 @Module({
     imports: [
@@ -21,18 +21,8 @@ import {
             }),
             inject: [ConfigService]
         }),
-        TypeOrmModule.forRoot({
-            type: 'postgres',
-            host: 'localhost',
-            port: 5432,
-            username: 'admin',
-            password: 'password',
-            database: 'postgres',
-            entities: [],
-            synchronize: false,
-        })
     ],
-    controllers: [],
+    controllers: [AppController],
     providers: [],
 })
 export class AppModule {}
